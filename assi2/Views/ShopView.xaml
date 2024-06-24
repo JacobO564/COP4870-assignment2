@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="assi2.Views.ShopView"
+             Title="ShopView"
+			 NavigatedTo="ContentPage_NavigatedTo"
+             >
+    <VerticalStackLayout>
+		<ListView
+            ItemsSource="{Binding Items}"
+            SelectedItem="{Binding SelectedItem}"
+            >
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<ViewCell>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
+								<ColumnDefinition Width="5*"/>
+								<ColumnDefinition/>
+							</Grid.ColumnDefinitions>
+
+							<Label Grid.Column="0" Text="{Binding Model.id}"/>
+							<Label Grid.Column="1" Text="{Binding Model.DisplayPrice}"/>
+							<Label Grid.Column="2" Text="{Binding Model.name}"/>
+							<Label Grid.Column="3" Text="{Binding Model.stock}"/>
+						</Grid>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+		<Button
+			Text="Buy Selected Item"
+			Clicked="BuySelectedClicked"/>
+		<Button
+			Text="Check Out"
+			Clicked="CheckOutClicked"/>
+		<Button
+            Text="Go Back"
+            Clicked="CancelClicked"/>
+    </VerticalStackLayout>
+</ContentPage>

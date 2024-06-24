@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="assi2.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:assi2"
+    xmlns:views="clr-namespace:assi2.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Title="assi2">
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+    <ShellContent
+        Title="Inventory"
+        ContentTemplate="{DataTemplate views:InventoryView}"
+        Route="Inventory" />
+    <ShellContent
+        Title="Inventory"
+        ContentTemplate="{DataTemplate views:ShopView}"
+        Route="Shop" />
+    <ShellContent
+        Title="Product"
+        ContentTemplate="{DataTemplate views:ItemView}"
+        Route="Product" />
+    <ShellContent
+        Title="BuyItem"
+        ContentTemplate="{DataTemplate views:BuyItemView}"
+        Route="BuyItem" />
+    <ShellContent
+        Title="Cart"
+        ContentTemplate="{DataTemplate views:CartView}"
+        Route="Cart"/>
+
+</Shell>
