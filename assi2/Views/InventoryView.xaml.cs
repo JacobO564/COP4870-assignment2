@@ -15,6 +15,7 @@ public partial class InventoryView : ContentPage
         Shell.Current.GoToAsync("//MainPage");
     }
 
+
     private void AddClicked(object sender, EventArgs e)
     {
         var x = (BindingContext as InventoryViewModel)?.SelectedItem;
@@ -24,6 +25,11 @@ public partial class InventoryView : ContentPage
     private void UnselectClicked(object sender, EventArgs e)
     {
         (BindingContext as InventoryViewModel).SelectedItem = null;
+    }
+
+    private void TaxClicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//Tax");
     }
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)

@@ -39,6 +39,8 @@
             />
         <Button Text="Unselect Product, This is the only way"
                 Clicked="UnselectClicked"/>
+        <Button Text="Edit tax rate"
+                Clicked="TaxClicked"/>
 
     </VerticalStackLayout>
 </ContentPage>

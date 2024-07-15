@@ -12,6 +12,7 @@ namespace Assignment1
     {
         private Inventory inventory;
         private Inventory cart;
+        public double taxRate = 0.07;
 
         private static Shop? instance;
         private static object instanceLock = new object();
@@ -74,7 +75,7 @@ namespace Assignment1
 
         public double CartCost()
         {
-            return cart.TotalCost();
+            return cart.TotalCost() * (1 + taxRate);
         }
 
         public bool BuyCart()
@@ -148,7 +149,7 @@ namespace Assignment1
         }
         public string CartString()
         {
-            return $"{cart.ToString()}\nTotal Cost: ${cart?.TotalCost():F2}";
+            return $"{cart.ToString()}\nTotal Cost: ${(cart?.TotalCost() * (1 + taxRate)):F2}";
         }
 
         public static Shop Current

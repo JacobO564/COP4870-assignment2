@@ -32,5 +32,9 @@
         Title="Cart"
         ContentTemplate="{DataTemplate views:CartView}"
         Route="Cart"/>
+    <ShellContent
+        Title="Tax"
+        ContentTemplate="{DataTemplate views:Tax}"
+        Route="Tax"/>
 
 </Shell>

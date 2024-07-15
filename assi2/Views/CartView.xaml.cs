@@ -27,4 +27,6 @@ public partial class CartView : ContentPage
     {
         Shell.Current.GoToAsync("//Shop");
     }
+
+
 }
