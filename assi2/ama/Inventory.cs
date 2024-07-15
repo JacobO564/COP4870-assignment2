@@ -142,7 +142,7 @@ namespace Assignment1
             // multiple each item in inventory with its price and amount in stock
             foreach ( var item in items)
             {
-                totalCost += item.price * item.stock;
+                totalCost += item.GetCost();
             }
 
             return totalCost;

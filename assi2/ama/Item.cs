@@ -23,6 +23,10 @@ namespace Assignment1
             set;
         }
 
+        public bool bogo { get; set; }
+
+        public double markdown { get; set; }
+
         public string DisplayPrice
         {
             get
@@ -39,6 +43,8 @@ namespace Assignment1
             stock = 0;
             name = "no name";
             description = "no description";
+            bogo = false;
+            markdown = 0.0;
         }
 
         public Item(string name ,string description, double price)
@@ -48,6 +54,8 @@ namespace Assignment1
             this.description = description;
             id = 0;
             stock = 0;
+            bogo = false;
+            markdown = 0.0;
         }
 
         public Item(Item item)
@@ -57,11 +65,28 @@ namespace Assignment1
             description = item.description;
             id = item.id;
             stock = item.stock;
+            bogo = item.bogo;
+            markdown = item.markdown;
         }
 
         public void IncreaseStock(int increaseAmount)
         {
             stock += increaseAmount;
+        }
+
+        public double GetCost()
+        {
+            int countedItems = stock;
+            if (bogo)
+            {
+                countedItems = (int)stock / 2;
+                if (stock % 2 == 1)
+                {
+                    countedItems += 1;
+                }
+            }
+
+            return price * countedItems * (1 - markdown);
         }
 
         public override string ToString()
