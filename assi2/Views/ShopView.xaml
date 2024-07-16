@@ -6,31 +6,63 @@
 			 NavigatedTo="ContentPage_NavigatedTo"
              >
     <VerticalStackLayout>
-		<ListView
-            ItemsSource="{Binding Items}"
-            SelectedItem="{Binding SelectedItem}"
-            >
-			<ListView.ItemTemplate>
-				<DataTemplate>
-					<ViewCell>
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition/>
-								<ColumnDefinition/>
-								<ColumnDefinition Width="5*"/>
-								<ColumnDefinition/>
-							</Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ListView
+                ItemsSource="{Binding Items}"
+                SelectedItem="{Binding SelectedItem}"
+                Grid.Column="0"
+                >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
 
-							<Label Grid.Column="0" Text="{Binding Model.id}"/>
-							<Label Grid.Column="1" Text="{Binding Model.DisplayPrice}"/>
-							<Label Grid.Column="2" Text="{Binding Model.name}"/>
-							<Label Grid.Column="3" Text="{Binding Model.stock}"/>
-						</Grid>
-					</ViewCell>
-				</DataTemplate>
-			</ListView.ItemTemplate>
-		</ListView>
-		<Button
+                                <Label Grid.Column="0" Text="{Binding Model.id}"/>
+                                <Label Grid.Column="1" Text="{Binding Model.DisplayPrice}"/>
+                                <Label Grid.Column="2" Text="{Binding Model.name}"/>
+                                <Label Grid.Column="3" Text="{Binding Model.stock}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView
+            ItemsSource="{Binding CartItems}"
+            Grid.Column="1"
+                    >
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Column="0" Text="{Binding Model.id}"/>
+                                    <Label Grid.Column="1" Text="{Binding Model.DisplayPrice}"/>
+                                    <Label Grid.Column="2" Text="{Binding Model.name}"/>
+                                    <Label Grid.Column="3" Text="{Binding Model.stock}"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+        </Grid>
+        <Button
 			Text="Buy Selected Item"
 			Clicked="BuySelectedClicked"/>
 		<Button
@@ -39,5 +71,37 @@
 		<Button
             Text="Go Back"
             Clicked="CancelClicked"/>
+        <!-- Cart Cycle -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+
+            </Grid.ColumnDefinitions>
+            <Button
+                Text="left"
+                Clicked="CycleCartLeftClicked"
+                Grid.Column ="0"/>
+            <Label
+                Text="Cart Selection"
+                Grid.Column ="1"/>
+            <Button
+                Text="right"
+                Clicked="CycleCartRightClicked"
+                Grid.Column ="2"/>
+            <Label/>
+            <Button
+                Text="Add a Cart"
+                Clicked="AddACartClicked"
+                Grid.Column ="3"/>
+            <Button
+                Text="Delete current Cart"
+                Clicked="DeleteSelectedCartClicked"
+                Grid.Column ="4"/>
+
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

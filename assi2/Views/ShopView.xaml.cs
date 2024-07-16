@@ -30,4 +30,24 @@ public partial class ShopView : ContentPage
         Shell.Current.GoToAsync("//Cart");
     }
 
+    private void CycleCartLeftClicked(object sender, EventArgs e)
+    {
+        (BindingContext as ShopViewModel).CycleCartLeft();
+    }
+
+    private void CycleCartRightClicked(object sender, EventArgs e)
+    {
+        (BindingContext as ShopViewModel).CycleCartRight();
+    }
+
+    private void AddACartClicked(object sender, EventArgs e)
+    {
+        (BindingContext as ShopViewModel).AddCart();
+    }
+
+    private void DeleteSelectedCartClicked(object sender, EventArgs e)
+    {
+        (BindingContext as ShopViewModel).RemoveCurrentCart();
+    }
+
 }
