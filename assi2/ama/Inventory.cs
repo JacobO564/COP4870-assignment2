@@ -78,7 +78,8 @@ namespace Assignment1
             // to update the id must match, else it doesnt known which item to update
             if (itemToUpdate == null)
             {
-                return null;
+                Item? ret = Add(item);
+                return ret;
             }
 
             items.Remove(itemToUpdate);

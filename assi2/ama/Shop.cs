@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,14 +37,8 @@ namespace Assignment1
             cartsList = new List<Inventory>();
             cartsList.Add(new Inventory());
 
-            //todo - remove
-            Item item_add = new Item("dummy", "dummy desc", 2.00);
-            item_add.IncreaseStock(10);
-            AddToInventory(item_add);
 
-            Item item_add2 = new Item("dummy2", "dummy desc", 4.00);
-            item_add2.IncreaseStock(10);
-            AddToInventory(item_add2);
+            SyncInventory();
 
         }
         public int AddCart()
@@ -119,10 +114,20 @@ namespace Assignment1
             return cart.TotalCost() * (1 + taxRate);
         }
 
-        public bool BuyCart()
+        public async Task<bool> BuyCart()
         {
+            SyncInventory();
             if (inventory.CanSubtractInventory(cart)){
-                inventory.SubtractInventories(cart);
+                // inventory.SubtractInventories(cart);
+                
+                foreach (Item item in cart.Item)
+                {
+                    var NewItem = inventory.GetItem(item.id);
+                    NewItem.IncreaseStock(-item.stock);
+                    await AddOrUpdate(NewItem);
+                    inventory.AddOrUpdate(NewItem);
+                }
+                SyncInventory();
                 ClearCart();
                 return true;
             }
@@ -159,29 +164,62 @@ namespace Assignment1
             return cart.Item;
         }
 
-        public bool RemoveItemInventroy(int id)
+
+        // todo add api interface
+        public async Task<bool> RemoveItemInventroy(int id)
         {
-           return inventory.Delete(id);
+            var x = await Delete(id);
+            inventory.Delete(id);
+            SyncInventory();
+            return x ?? false;
         }
+
 
         public Item? GetItemInventory(int id)
         {
             return inventory.GetItem(id);
         }
 
-        public Item? UpdateItemInventory(Item item)
+
+
+  
+        public async Task<Item?> AddOrUpdateInventory(Item item)
         {
-            return inventory.Update(item);
+            var x = await AddOrUpdate(item);
+            inventory.AddOrUpdate(x);
+            SyncInventory();
+            return x;
+            //return inventory.AddOrUpdate(item);
         }
 
-        public Item? AddToInventory(Item item)
+        public async Task<IEnumerable<Item>> Get()
         {
-            return inventory.Add(item);
+            var result = await new assi2.ama.WebRequestHandler().Get("/Inventory");
+            var deserializedResult = JsonConvert.DeserializeObject<List<Item>>(result);
+            return deserializedResult?.ToList() ?? new List<Item>();
         }
 
-        public Item? AddOrUpdateInventory(Item item)
+        public async Task<Item?> AddOrUpdate(Item item)
         {
-            return inventory.AddOrUpdate(item);
+            var result = await new assi2.ama.WebRequestHandler().Post("/Inventory", item);
+            return JsonConvert.DeserializeObject<Item>(result);
+        }
+
+        public async Task<bool?> Delete(int id)
+        {
+            var response = await new assi2.ama.WebRequestHandler().Delete($"/{id}");
+            var itemToDelete = JsonConvert.DeserializeObject<bool>(response);
+            return itemToDelete;
+        }
+
+        public async void SyncInventory()
+        {
+            var ItemsFromWeb = await Get();
+            ClearInventory();
+            foreach (var item in ItemsFromWeb)
+            {
+                inventory.AddOrUpdate(item);
+            }
         }
 
         public string InventoryString()
