@@ -1,4 +1,5 @@
 
+using Assignment1;
 using shopAPI.Databases;
 
 namespace shopAPI
@@ -8,6 +9,8 @@ namespace shopAPI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+
             FakeDatabase.PopulateDatabase();
 
             // Add services to the container.

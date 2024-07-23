@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -10,11 +10,5 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 		
-
-  <ItemGroup>
-    <Reference Include="assi2">
-      <HintPath>..\..\assi2\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\assi2.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 
 </Project>
