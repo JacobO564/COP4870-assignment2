@@ -195,6 +195,9 @@ namespace Assignment1
         public async Task<IEnumerable<Item>> Get()
         {
             var result = await new assi2.ama.WebRequestHandler().Get("/Inventory");
+            if (result is null){
+                return new List<Item>();
+            }
             var deserializedResult = JsonConvert.DeserializeObject<List<Item>>(result);
             return deserializedResult?.ToList() ?? new List<Item>();
         }
