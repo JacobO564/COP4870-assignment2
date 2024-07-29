@@ -36,5 +36,9 @@
         Title="Tax"
         ContentTemplate="{DataTemplate views:Tax}"
         Route="Tax"/>
+    <ShellContent
+        Title="Import"
+        ContentTemplate="{DataTemplate views:Import}"
+        Route="Import"/>
 
 </Shell>

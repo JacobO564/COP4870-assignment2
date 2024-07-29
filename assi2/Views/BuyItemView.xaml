@@ -18,6 +18,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <Label Text="Id" Grid.Row="0" Grid.Column="0"/>
             <Label Text="{Binding Model.id}" Grid.Row="0" Grid.Column="1"/>
@@ -39,6 +40,9 @@
 
             <Label Text="Amount in Cart" Grid.Row="6" Grid.Column="0"/>
             <Entry Text="{Binding AmountInCart}" Grid.Row="6" Grid.Column="1"/>
+
+            <Label Text="Description" Grid.Row="7" Grid.Column="0"/>
+            <Label Text="{Binding Model.description}" Grid.Row="7" Grid.Column="1"/>
         </Grid>
 
         <Button Text="Enter Amount you wish to buy" Clicked="CancelClicked"/>

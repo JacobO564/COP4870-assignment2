@@ -30,17 +30,19 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="Add Product"
+        <Button Text="Add/Edit/Delete Product"
                 Clicked="AddClicked"
                 />
         <Button
             Text="Cancel"
             Clicked="CancelClicked"
             />
-        <Button Text="Unselect Product, This is the only way"
+        <Button Text="Unselect selected Item, This is the only way"
                 Clicked="UnselectClicked"/>
         <Button Text="Edit tax rate"
                 Clicked="TaxClicked"/>
+        <Button Text="Mass import file"
+                Clicked="ImportClicked"/>
 
     </VerticalStackLayout>
 </ContentPage>

@@ -12,6 +12,7 @@ namespace Api.ToDoApplication.Persistence
     {
         private string _root;
         private static Filebase? _instance;
+        private static object instanceLock = new object();
 
 
         public static Filebase Current
@@ -33,14 +34,17 @@ namespace Api.ToDoApplication.Persistence
             {
                 var root = new DirectoryInfo(_root);
                 var items = new List<Item>();
-                foreach (var appFile in root.GetFiles())
+                lock (instanceLock)
                 {
-                    var item = JsonConvert.DeserializeObject<Item>(File.ReadAllText(appFile.FullName));
-                    if (item != null)
+                    foreach (var appFile in root.GetFiles())
                     {
-                        items.Add(item);
-                    }
+                        var item = JsonConvert.DeserializeObject<Item>(File.ReadAllText(appFile.FullName));
+                        if (item != null)
+                        {
+                            items.Add(item);
+                        }
 
+                    }
                 }
                 return items;
             }
@@ -72,16 +76,19 @@ namespace Api.ToDoApplication.Persistence
 
             //go to the right place]
             string path = $"{_root}\\{item.id}.json";
-
-            //if the item has been previously persisted
-            if (File.Exists(path))
+            lock (instanceLock)
             {
-                //blow it up
-                File.Delete(path);
-            }
 
-            //write the file
-            File.WriteAllText(path, JsonConvert.SerializeObject(item));
+                //if the item has been previously persisted
+                if (File.Exists(path))
+                {
+                    //blow it up
+                    File.Delete(path);
+                }
+
+                //write the file
+                File.WriteAllText(path, JsonConvert.SerializeObject(item));
+            }
 
             //return the item, which now has an id
             return item;
@@ -92,12 +99,15 @@ namespace Api.ToDoApplication.Persistence
             //go to the right place]
             string path = $"{_root}\\{id}.json";
 
-            //if the item has been previously persisted
-            if (File.Exists(path))
+            lock (instanceLock)
             {
-                //blow it up
-                File.Delete(path);
-                return true;
+                //if the item has been previously persisted
+                if (File.Exists(path))
+                {
+                    //blow it up
+                    File.Delete(path);
+                    return true;
+                }
             }
             return false;
         }
